@@ -11,7 +11,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <name>q3732109</name>
-    <description>Demo project for Spring Boot</description>
+    <description>The Simplest Server That Could Possibly Work</description>
 
     <properties>
         <java.version>1.8</java.version>

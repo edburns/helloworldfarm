@@ -40,12 +40,12 @@ jobs:
           az group create --verbose --name ${resourceGroup} --location ${location}
           
       - name: Build noframework
-        run: mvn -DsubscriptionId=${{ secrets.AZURE_CREDENTIALS }} -DresourceGroup=${resourceGroup} -DappName=${resourceGroup} -Dregion=${location} --file helloworldfarm/noframework/pom.xml clean package azure-webapp:deploy
+        run: mvn -DsubscriptionId=${{ secrets.subscriptionId }} -DresourceGroup=${resourceGroup} -DappName=${resourceGroup} -Dregion=${location} --file helloworldfarm/noframework/pom.xml clean package azure-webapp:deploy
 
       - name: Assert correctness of noframework
         run: |
           export resourceGroup=${GITHUB_RUN_ID}${GITHUB_RUN_NUMBER}
-          curl --verbose http://${resourceGroup}.azurewebsites.net/test
+          curl --verbose https://${resourceGroup}.azurewebsites.net/test
 
       
   cleanup-noframework:
