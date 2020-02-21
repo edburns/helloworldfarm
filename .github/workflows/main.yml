@@ -18,6 +18,10 @@ jobs:
   noframework:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout helloworldfarm
+        uses: actions/checkout@v2
+        with:
+          path: helloworldfarm
       
       - name: Discovery
         run: |
