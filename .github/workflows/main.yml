@@ -40,7 +40,7 @@ jobs:
           az group create --verbose --name ${resourceGroup} --location ${location}
           
       - name: Build noframework
-        run: mvn -DsubscriptionId=${{ secrets.AZURE_CREDENTIALS }} -DresourceGroup=${resourceGroup} -DappName=${resourceGroup} -Dregion=${location} helloworldfarm/noframework/pom.xml clean package azure-webapp:deploy
+        run: mvn -DsubscriptionId=${{ secrets.AZURE_CREDENTIALS }} -DresourceGroup=${resourceGroup} -DappName=${resourceGroup} -Dregion=${location} --file helloworldfarm/noframework/pom.xml clean package azure-webapp:deploy
 
       - name: Assert correctness of noframework
         run: |
