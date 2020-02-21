@@ -39,7 +39,7 @@ jobs:
           az group create --verbose --name ${resourceGroup} --location ${location}
           
   cleanup-noframework:
-    needs: build
+    needs: noframework
     if: always()
     runs-on: ubuntu-latest
     steps:
