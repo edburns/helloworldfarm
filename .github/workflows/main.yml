@@ -25,7 +25,8 @@ jobs:
           java-version: 11
           
       - name: Build noframework
-        run: mvn -DskipTests clean install --file noframework/pom.xml
+        run: |
+          tree
         
       - uses: azure/login@v1
         with:
