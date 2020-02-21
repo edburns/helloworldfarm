@@ -21,7 +21,7 @@ jobs:
       
       - name: Discovery
         run: |
-          tree
+          find . -type f -print
 
       - name: Java 11
         uses: actions/setup-java@v1
