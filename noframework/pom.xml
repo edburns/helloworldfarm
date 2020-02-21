@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.stackoverflow.q3732109</groupId>
+    <artifactId>q3732109</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>q3732109</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <subscriptionId></subscriptionId>
+        <resourceGroup></resourceGroup>
+        <appName></appName>
+        <region></region>
+    </properties>
+
+    <build>
+      <finalName>${project.artifactId}</finalName>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-jar-plugin</artifactId>
+           <configuration>
+             <archive>
+               <manifest>
+                 <addClasspath>true</addClasspath>
+                 <mainClass>com.stackoverflow.q3732109.HelloWorldServer</mainClass>
+               </manifest>
+             </archive>
+           </configuration>
+         </plugin>
+         <plugin>
+             <groupId>com.microsoft.azure</groupId>
+             <artifactId>azure-webapp-maven-plugin</artifactId>
+             <version>1.9.0</version>
+             <configuration>
+                <subscriptionId>${subscriptionId}</subscriptionId>
+                <schemaVersion>v2</schemaVersion>
+                <resourceGroup>${resourceGroup}</resourceGroup>
+                <appName>${appName}</appName>
+                <region>${region}</region>
+                <pricingTier>P1V2</pricingTier>
+                <runtime>
+                  <os>linux</os>
+                  <javaVersion>jre8</javaVersion>
+                </runtime>
+                <deployment>
+                  <resources>
+                    <resource>
+                      <directory>${project.basedir}/target</directory>
+                      <includes>
+                        <include>*.jar</include>
+                      </includes>
+                    </resource>
+                  </resources>
+                </deployment>
+               </configuration>
+         </plugin>
+       </plugins>
+    </build>    
+
+</project>

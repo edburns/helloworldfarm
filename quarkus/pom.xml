@@ -108,9 +108,11 @@
                     <runtime>
                         <os>Docker</os>
                         <!-- only image is required -->
-                        <image>[hub-user/]repo-name[:tag]</image>
-                        <serverId></serverId>
+                        <image>ejb020301k.azurecr.io/${project.artifactId}:1.0.0</image>
+                        <!--
+                        <serverId>ejb020301k.azurecr.io</serverId>
                         <registryUrl></registryUrl>
+                        -->
                     </runtime>
                 </configuration>
             </plugin>

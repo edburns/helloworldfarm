@@ -11,7 +11,7 @@ public class Application {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "Hello App Service Locally 4:48 with OpenJDK";
+        return "Hello App Service Locally";
     }
 
 }

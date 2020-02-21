@@ -1,15 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
-<project
-        xmlns="http://maven.apache.org/POM/4.0.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.4.RELEASE</version>
-        <relativePath />
+        <relativePath/>
     </parent>
 
     <groupId>com.microsoft.appservice</groupId>
@@ -42,24 +38,28 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                        <finalName>${project.name}</finalName>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.microsoft.azure</groupId>
-                <artifactId>azure-webapp-maven-plugin</artifactId>
-                <version>1.9.0</version>
+                <artifactId>azure-spring-cloud-maven-plugin</artifactId>
+                <version>1.0.0</version>
                 <configuration>
-                    <schemaVersion>V2</schemaVersion>
-                    <resourceGroup>voxxedbanff</resourceGroup>
-                    <appName>springboot-442</appName>
-                    <region>westus</region>
-                    <pricingTier>P1v2</pricingTier>
-                    <runtime>
-                        <os>linux</os>
-                        <javaVersion>jre8</javaVersion>
-                    </runtime>
+                    <subscriptionId>05887623-95c5-4e50-a71c-6e1c738794e2</subscriptionId>
+                    <clusterName>ejb020401s</clusterName>
+                    <appName>ejb020401s</appName>
+                    <isPublic>true</isPublic>
                     <deployment>
+                        <cpu>1</cpu>
+                        <memoryInGB>1</memoryInGB>
+                        <instanceCount>1</instanceCount>
                         <resources>
                             <resource>
+                                <filtering/>
+                                <mergeId/>
+                                <targetPath/>
                                 <directory>${project.basedir}/target</directory>
                                 <includes>
                                     <include>*.jar</include>
