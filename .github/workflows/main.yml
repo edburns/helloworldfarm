@@ -23,18 +23,11 @@ jobs:
         with:
           path: helloworldfarm
       
-      - name: Discovery
-        run: |
-          find . -type f -print
-
       - name: Java 11
         uses: actions/setup-java@v1
         with:
           java-version: 11
           
-      - name: Build noframework
-        run: mvn -DskipTests clean install --file helloworldfarm/noframework/pom.xml
-        
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -46,6 +39,15 @@ jobs:
           echo ${resourceGroup} ${location}
           az group create --verbose --name ${resourceGroup} --location ${location}
           
+      - name: Build noframework
+        run: mvn -DsubscriptionId=${{ secrets.AZURE_CREDENTIALS }} -DresourceGroup=${resourceGroup} -DappName=${resourceGroup} -Dregion=${location} clean package azure-webapp:deploy
+
+      - name: Assert correctness of noframework
+        run: |
+          export resourceGroup=${GITHUB_RUN_ID}${GITHUB_RUN_NUMBER}
+          curl --verbose http://${resourceGroup}.azurewebsites.net/test
+
+      
   cleanup-noframework:
     needs: noframework
     if: always()
