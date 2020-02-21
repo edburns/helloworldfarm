@@ -33,7 +33,7 @@ jobs:
           java-version: 11
           
       - name: Build noframework
-        run: mvn -DskipTests clean install --file noframework/pom.xml
+        run: mvn -DskipTests clean install --file helloworldfarm/noframework/pom.xml
         
       - uses: azure/login@v1
         with:
