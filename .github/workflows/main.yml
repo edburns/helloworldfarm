@@ -54,8 +54,9 @@ jobs:
               echo "testing http://${testhost}/test"
               curl --verbose http://${testhost}/test > out.txt && true
               echo "curl rc: $?"
-              grep "Hello World" out.txt
-              rc=$?
+              rc=$(grep "Hello World" out.txt) && true
+              echo "grep rc: ${rc}"
+              echo "assignment rc: $?" 
               if [ ${rc} -eq 0 ]
               then
                   echo "SUCCESS"
