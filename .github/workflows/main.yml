@@ -60,7 +60,7 @@ jobs:
               fi
               sleep 5
           done
-          exit 1
+          exit $?
       
   cleanup-noframework:
     needs: noframework
