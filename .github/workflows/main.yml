@@ -48,8 +48,19 @@ jobs:
       - name: Assert correctness of noframework
         run: |
           export resourceGroup=${GITHUB_RUN_ID}${GITHUB_RUN_NUMBER}
-          curl --verbose https://${resourceGroup}.azurewebsites.net/test
-
+          export testhost=${resourceGroup}.azurewebsites.net
+          for i in {0..20}
+          do
+              curl --verbose http://${testhost}/test > out.txt
+              grep "Hello World" out.txt
+              if [ $? -eq 0 ]
+              then
+                  echo "SUCCESS"
+                  exit $?
+              fi
+              sleep 5
+          done
+          exit 1
       
   cleanup-noframework:
     needs: noframework
