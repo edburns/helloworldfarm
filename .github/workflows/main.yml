@@ -52,12 +52,8 @@ jobs:
           for i in {1..20}
           do
               echo "testing http://${testhost}/test"
-              curl --verbose http://${testhost}/test > out.txt && true
-              echo "curl rc: $?"
-              rc=$(grep "Hello World" out.txt) && true
-              echo "grep rc: ${rc}"
-              echo "assignment rc: $?" 
-              if [ ${rc} -eq 0 ]
+              curl --verbose http://${testhost}/test > out.txt || true
+              if grep "Hello World" out.txt
               then
                   echo "SUCCESS"
                   exit $?
@@ -65,7 +61,7 @@ jobs:
                   echo "FAILED. RETRY $i of 20."
               fi
           done
-          exit ${rc}
+          exit 1
       
   cleanup-noframework:
     needs: noframework
