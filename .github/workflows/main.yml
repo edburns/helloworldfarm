@@ -53,6 +53,7 @@ jobs:
           do
               echo "testing http://${testhost}/test"
               curl --verbose http://${testhost}/test > out.txt && true
+              echo "curl rc: $?"
               grep "Hello World" out.txt
               rc=$?
               if [ ${rc} -eq 0 ]
