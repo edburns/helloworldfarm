@@ -51,8 +51,8 @@ jobs:
           export testhost=${resourceGroup}.azurewebsites.net
           for i in {0..20}
           do
-              curl --verbose http://${testhost}/test > out.txt
-              grep "Hello World" out.txt
+              curl --verbose http://${testhost}/test > out.txt && true
+              grep "Hello World" out.txt && true
               if [ $? -eq 0 ]
               then
                   echo "SUCCESS"
