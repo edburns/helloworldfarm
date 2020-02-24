@@ -49,18 +49,21 @@ jobs:
         run: |
           export resourceGroup=${GITHUB_RUN_ID}${GITHUB_RUN_NUMBER}
           export testhost=${resourceGroup}.azurewebsites.net
-          for i in {0..20}
+          for i in {1..20}
           do
+              echo "testing http://${testhost}/test"
               curl --verbose http://${testhost}/test > out.txt && true
-              grep "Hello World" out.txt && true
-              if [ $? -eq 0 ]
+              grep "Hello World" out.txt
+              rc=$?
+              if [ ${rc} -eq 0 ]
               then
                   echo "SUCCESS"
                   exit $?
+              else
+                  echo "FAILED. RETRY $i of 20."
               fi
-              sleep 5
           done
-          exit $?
+          exit ${rc}
       
   cleanup-noframework:
     needs: noframework
