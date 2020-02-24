@@ -59,6 +59,7 @@ jobs:
                   exit $?
               else
                   echo "FAILED. RETRY $i of 20."
+                  sleep 5
               fi
           done
           exit 1
