@@ -13,6 +13,7 @@ on:
 
 env:
   location: eastus
+  resourceGroup: ${{ github.run_id }}-${{ github.run_number }}
     
 jobs:
   noframework:
@@ -35,20 +36,17 @@ jobs:
       - name: Create Resource Group
         id: create-resource-group
         run: |
-          export resourceGroup=${GITHUB_RUN_ID}${GITHUB_RUN_NUMBER}
-          echo ${resourceGroup} ${location}
-          az group create --verbose --name ${resourceGroup} --location ${location}
+          echo ${{ env.resourceGroup }} ${location}
+          az group create --verbose --name ${{ env.resourceGroup }} --location ${location}
           
       - name: Build noframework
         run: |
-          export resourceGroup=${GITHUB_RUN_ID}${GITHUB_RUN_NUMBER}
-          echo ${resourceGroup} ${location}
-          mvn -DsubscriptionId=${{ secrets.subscriptionId }} -DresourceGroup=${resourceGroup} -DappName=${resourceGroup} -Dregion=${location} --file helloworldfarm/noframework/pom.xml clean package azure-webapp:deploy
+          echo ${{ env.resourceGroup }} ${location}
+          mvn -DsubscriptionId=${{ secrets.subscriptionId }} -DresourceGroup=${{ env.resourceGroup }} -DappName=${{ env.resourceGroup }} -Dregion=${location} --file helloworldfarm/noframework/pom.xml clean package azure-webapp:deploy
 
       - name: Assert correctness of noframework
         run: |
-          export resourceGroup=${GITHUB_RUN_ID}${GITHUB_RUN_NUMBER}
-          export testhost=${resourceGroup}.azurewebsites.net
+          export testhost=${{ env.resourceGroup }}.azurewebsites.net
           for i in {1..20}
           do
               echo "testing https://${testhost}/test"
@@ -75,6 +73,5 @@ jobs:
       - name: Delete Resource Group
         id: delete-resource-group
         run: |
-          export resourceGroup=${GITHUB_RUN_ID}${GITHUB_RUN_NUMBER}
-          echo ${resourceGroup} ${location}
-          az group delete --yes --no-wait --verbose --name ${resourceGroup}
+          echo ${{ env.resourceGroup }} ${location}
+          az group delete --yes --no-wait --verbose --name ${{ env.resourceGroup }}
